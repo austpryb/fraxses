@@ -1,7 +1,4 @@
----
 ### Refer to 01-chainlink-operator/google/modules/k8s/avalanche.tf to see how the Kubernetes deployment references this build. 
-
-Official node implementation of the [Avalanche](https://avax.network) network 
 
 <strong>04-Avalanche</strong> project directory has been cloned from the [official](https://github.com/ava-labs/avalanchego) Avalanche node repository and adapted to run in Kubernetes
 
