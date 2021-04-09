@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-adapter
+  namespace: {{ namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: external-adapter
+  template:
+    metadata:
+      labels:
+        component: external-adapter
+    spec:
+      terminationGracePeriodSeconds: 10
+      imagePullSecrets:
+        - name: fraxses-reg-cred
+      containers:
+        - name: external-adapter-img
+          imagePullPolicy: Always
+          image: {{ image }}
+          env:
+            - name: SMTP_USERNAME
+              value: {{ smtp_username }}
+            - name: SMTP_PASSWORD            
+              value: {{ smtp_password }}
+            - name: FRAXSES_API_GATEWAY
+              value: {{ fraxses_api_gateway }}
+            - name: FRAXSES_USERNAME
+              value: {{ fraxses_username }}
+            - name: FRAXSES_PASSWORD
+              value: {{ fraxses_password }}
+          ports:
+            - containerPort: 8080
+              name: external-adapter-port
+          terminationMessagePath: "/dev/termination-log"
+          terminationMessagePolicy: File
+          resources:
+            requests:
+              memory: 1000Mi
+              cpu:  1500m
+

@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  cp_backend:
+    env_file:
+      - .env
+    build:
+      context: .
+    container_name: chainlink-node-pool-dev
+    command: tail -f /dev/null
+    restart: always
+    volumes:
+     - .:/chainlink
+     # You can mount $HOME/.kube to the container config if you want your kube to reflect to your local machine
+     #- /home/user/.kube:/root/.kube
+

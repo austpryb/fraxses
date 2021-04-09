@@ -1,0 +1,14 @@
+# Need to have recorded
+deploy Google tf 
+add ingress for public facing external adapter on the sandbox
+add avalanche micro service to wrap the avalanche JSOON RCP 20 api
+tour of lens
+how to access chainlink nodes 
+how to reference external adapter in chainlink node
+host a public adapter for the community
+
+# Nice to have
+Deploy NFT constructor that calls fraXses
+Deploy smart contract that processes an invoice
+Deploy smart contract that accrues invoices value and settles on kovan
+
