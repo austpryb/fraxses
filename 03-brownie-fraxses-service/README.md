@@ -9,6 +9,25 @@ The Brownie microservice is meant to be run from within an existing fraXses clus
 These capabilities make the Brownie Chainlink mix an interesting proposition for a microservice. Developers can mount their pre-existing Brownie project on a Kubernetes volume into the session already being hosted or opt to port forward into a fresh container from the Kube commandline thus giving direct access to the Brownie project as if it were hosted locally.
 
 What makes this Brownie session different than others is the background producer/consumer processing. The following block of code opens a Python consumer listening to a channel specified in the fraXses metadata database and runs as the ENTRYPOINT/CMD program for the Docker container. This program perpetually listens for incoming messages coming from the fraXses coordinator. 
+
+#### Refer to  <strong>03-brownie-fraxses-service/deployments/deployment-manifest.py</strong>
+This script will use JINJA2 template to auto generate the Kubernetes deployment files. This is useful for embedding environment variables into the container so your Brownie session has access. You could extend this functionality to use Kubernetes secrets as well. 
+```
+# the contents of 03-brownie-fraxses-service/deployments/exammple_manifest are generated like so
+sudo python3 manifest.py test \ 
+			default \
+			namespace \ 
+			environment \ 
+			web3_infura_project_id \ 
+			web3_infura_project_secret \ 
+			web3_infura_mainnet_wss \
+			web3_infura_mainnet_https \ 
+			web3_infura_kovan_wss \
+			web3_infura_kovan_https \ 
+			wallet_private_key_mainnet \ 
+			wallet_private_key_kovan \
+			version_name mainnet \
+```
  
 #### Refer to <strong>03-brownie-fraxses-service/dapps/hackathon/app/app.py</strong>
 
