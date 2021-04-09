@@ -6,4 +6,3 @@ terraform.tfstate*
 tf.plan
 chainlink.tfvars
 .env
-__pycache__/

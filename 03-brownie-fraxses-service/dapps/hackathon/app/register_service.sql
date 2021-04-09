@@ -1,9 +1,9 @@
-	INSERT INTO fraXsesK8S.dbo.dev_evt_tem (srv_cde,end_pnt,pay,inp_sch,com_typ,com_inf) VALUES
-		 ('chainlink','brownie','{
-									"id": @@id@@,
-									"obfuscate": @@obfuscate@@,
-									"payload":@@payload@@
-								  }','
+INSERT INTO fraXsesK8S.dbo.dev_evt_tem (srv_cde,end_pnt,pay,inp_sch,com_typ,com_inf) VALUES
+('chainlink','brownie','{
+			"id": @@id@@,
+			"obfuscate": @@obfuscate@@,
+			"payload":@@payload@@
+			}','
 	{
 	    "requiredInputs": [
 	        {

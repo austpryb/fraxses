@@ -6,11 +6,15 @@ if [ "$#" -ne 2 ]; then
     printf "${RED}please pass the name of the Google Cloud proejct you want to create and the desired Chainlink Admin Email\nExample: gcloud auth login | gcloud projects list\n${normal}"
     exit 1
 fi
+# 
+# . ./setup.sh chainlink-node-pool gcp-account@gmail.com wss://mainnet.infura.io/ws/v3/***
 
-#The ID of the project you just created.
+#The chainlink node pool project. For now only use the default
 PROJECT_ID=$1
 #your email address, used to login into the node's web portal
 USER_EMAIL=$2
+# ETH_URL_KOVAN
+ETH_URL_KOVAN=$3
 #the description and name for the Service Account
 SA_DESC="Terraform service account"
 SA_NAME=terraform-service-account
@@ -112,6 +116,7 @@ export SSH_EMAIL=$SSH_EMAIL
 export USER_EMAIL=$USER_EMAIL
 export CLUSTER_NAME=$CLUSTER_NAME
 export SSH_KEY="$SSH_KEY"
+export ETH_URL_KOVAN=$ETH_URL_KOVAN
 
 echo "All Google variables are saved"
 

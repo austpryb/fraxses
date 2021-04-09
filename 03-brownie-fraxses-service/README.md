@@ -1,193 +1,93 @@
 # Brownie
 
-[![Pypi Status](https://img.shields.io/pypi/v/eth-brownie.svg)](https://pypi.org/project/eth-brownie/) [![Build Status](https://img.shields.io/github/workflow/status/eth-brownie/brownie/brownie%20workflow)](https://github.com/eth-brownie/brownie/actions) [![Docs Status](https://readthedocs.org/projects/eth-brownie/badge/?version=latest)](https://eth-brownie.readthedocs.io/en/stable/) [![Coverage Status](https://img.shields.io/codecov/c/github/eth-brownie/brownie)](https://codecov.io/gh/eth-brownie/brownie)
+---
 
-Brownie is a Python-based development and testing framework for smart contracts targeting the [Ethereum Virtual Machine](https://solidity.readthedocs.io/en/v0.6.0/introduction-to-smart-contracts.html#the-ethereum-virtual-machine).
+<strong>03-brownie-fraxses-service</strong> project directory has been cloned from the [official](https://github.com/eth-brownie) Brownie repository and adapted to run as a microservice in fraXses.
 
-## Features
+The Brownie microservice is meant to be run from within an existing fraXses cluster and allows developers to access their web3 Brownie session over a REST API. The service runs in the fraXses mesh, a network of coordinated microservices that orchestrate logical tasks in the cluster. These services communicate over a highly available, highly replicated pubsub framework thus allowing any service ran as an HTTP server or producer/consumer to be hosted in the mesh. A vanilla fraXses implementation is comprised of microservices written in Rust, Scala, Python, C, Java, Julia and more. The kit also includes the fraXses optimized thrift server running Spark 3.0.1 which allows for virtual query federation to nearly 300 different sources of data. Again, all accesible over the fraXses gateway REST API. Because fraXses's tasks are configured as metadata, most of the configuration require litle to no code and is done in the fraXses Configuration platform. 
 
-* Full support for [Solidity](https://github.com/ethereum/solidity) (`>=0.4.22`) and [Vyper](https://github.com/vyperlang/vyper) (`>=0.1.0-beta.16`)
-* Contract testing via [`pytest`](https://github.com/pytest-dev/pytest), including trace-based coverage evaluation
-* Property-based and stateful testing via [`hypothesis`](https://github.com/HypothesisWorks/hypothesis/tree/master/hypothesis-python)
-* Powerful debugging tools, including python-style tracebacks and custom error strings
-* Built-in console for quick project interaction
-* Support for [ethPM](https://www.ethpm.com) packages
+These capabilities make the Brownie Chainlink mix an interesting proposition for a microservice. Developers can mount their pre-existing Brownie project on a Kubernetes volume into the session already being hosted or opt to port forward into a fresh container from the Kube commandline thus giving direct access to the Brownie project as if it were hosted locally.
 
-## Dependencies
+What makes this Brownie session different than others is the background producer/consumer processing. The following block of code opens a Python consumer listening to a channel specified in the fraXses metadata database and runs as the ENTRYPOINT/CMD program for the Docker container. This program perpetually listens for incoming messages coming from the fraXses coordinator. 
+ 
+#### Refer to <strong>03-brownie-fraxses-service/dapps/hackathon/app/app.py</strong>
 
-* [python3](https://www.python.org/downloads/release/python-368/) version 3.6 or greater, python3-dev
-* [ganache-cli](https://github.com/trufflesuite/ganache-cli) - tested with version [6.12.2](https://github.com/trufflesuite/ganache-cli/releases/tag/v6.12.2)
+```
+if __name__ == "__main__":
+    # open the smart wrapper listening context
+    wrapper = FraxsesWrapper(group_id="test", topic=TOPIC_NAME) 
 
-## Installation
-
-### via `pipx`
-
-The recommended way to install Brownie is via [`pipx`](https://github.com/pipxproject/pipx). pipx installs Brownie into a virtual environment and makes it available directly from the commandline. Once installed, you will never have to activate a virtual environment prior to using Brownie.
-
-To install `pipx`:
-
-```bash
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
+    with wrapper as w:
+	# iterate through this message batch
+        for message in wrapper.receive(FraxsesPayload):
+            if type(message) is not WrapperError:
+                # now handle the message with some Brownie logic
+                task = handle_message(message)
+                # respond back to the coordinator
+                response = Response(
+                    result=ResponseResult(success=True, error=""),
+                    payload=task,
+                )
+                message.respond(response)
+            else:
+                error = message
+                print("Error in wrapper", error.format_error(), message)
 ```
 
-To install Brownie using `pipx`:
+Technically you could use multiprocessing libary to listen to multiple topics thus serving multiple Brownie endpoints from the same session. 
 
-```bash
-pipx install eth-brownie
+```
+# Gives us access to the Brownie session
+from brownie import *
+...
+# init the Chainlink Brownie project
+network.connect('development')
+project = project.load('app/chainlink/')
+...
+def handle_message(message):
+    try:
+	# parse the payload using the data class schema shown below
+        data = message.payload
+        data = data.payload
+    except Exception as e:
+        print("Error in wrapper parsing", str(e))
+        return str(e)
+    try:
+        # If the parameters look okay, there is nothing left to do besides deploy the contract
+        deploy = deploy_contract()
+        # Just return the same payload that was sent in to indicate success
+        return data # Conveniently, you could make the return look like {'jobRunID':data, 'parameters':{'':''}}
+    except Exception as e:
+        return str(e)
 ```
 
-To upgrade to the latest version:
+Data classes define how the payload (our smart contract parameters) will be parsed
 
-```bash
-pipx upgrade eth-brownie
+```
+@dataclass
+class SmartContractParameters:
+    data: str
+
+@dataclass
+class FraxsesPayload:
+    id: str
+    obfuscate: bool
+    payload: SmartContractParameters
 ```
 
-To use lastest master or another branch as version:
-```bash
-pipx install git+https://github.com/eth-brownie/brownie.git@master
+This simple function to compile and deploy the FraXses-Chainlink NFT example
+
+```
+def deploy_contract(x):
+    try:
+        dev = accounts.add(os.getenv(config['wallets']['from_key']))
+        deployment = project.FraxsesNft.deploy({'from':dev}) #, publish_source=True)
+        return str(deployment) + '|' +str(type(deployment)) + '|'  + str(x)
+    except Exception as e:
+        return str(e)
 ```
 
-### via `pip`
+Finally the fraXses the Chainlink Proof of Concept... WIP
 
-You can install the latest release via [`pip`](https://pypi.org/project/pip/):
 
-```bash
-pip install eth-brownie
-```
 
-### via `setuptools`
-
-You can clone the repository and use [`setuptools`](https://github.com/pypa/setuptools) for the most up-to-date version:
-
-```bash
-git clone https://github.com/eth-brownie/brownie.git
-cd brownie
-python3 setup.py install
-```
-
-### as a library
-
-If you want to install brownie inside your own project (rather than as a standalone cli tool):
-
-```bash
-export BROWNIE_LIB=1
-pip install eth-brownie
-```
-
-This loosens the pins on all dependencies. You'll want to make sure you have your own `requirements.txt` to make sure upgrades upstream don't surprise anyone.
-
-### for development
-
-There are extra tools that are helpful when developing:
-
-```bash
-git clone https://github.com/eth-brownie/brownie.git
-cd brownie
-python3 -m venv venv
-./venv/bin/pip install wheel
-./venv/bin/pip install -e . -r requirements-dev.txt
-```
-
-Upgrading the pinned versions of dependencies is easy:
-```
-./venv/bin/pip-compile --upgrade
-./venv/bin/pip-compile --upgrade requirements-dev.in
-./venv/bin/pip-compile --upgrade requirements-windows.in
-```
-
-Even small upgrades of patch versions have broken things in the past, so be sure to run all tests after upgrading things!
-
-## Quick Usage
-
-To initialize a new Brownie project, start by creating a new folder. From within that folder, type:
-
-```bash
-brownie init
-```
-
-Next, type `brownie --help` for basic usage information.
-
-## Documentation and Support
-
-Brownie documentation is hosted at [Read the Docs](https://eth-brownie.readthedocs.io/en/latest/).
-
-If you have any questions about how to use Brownie, feel free to ask on [Ethereum StackExchange](https://ethereum.stackexchange.com/) or join us on [Gitter](https://gitter.im/eth-brownie/community).
-
-## Testing
-
-To run the tests, first install the developer dependencies:
-
-```bash
-pip install -e . -r requirements-dev.txt
-```
-
-Then use [`tox`](https://github.com/tox-dev/tox) to run the complete suite against the full set of build targets, or [`pytest`](https://github.com/pytest-dev/pytest) to run tests against a specific version of Python. If you are using [`pytest`](https://github.com/pytest-dev/pytest) you must include the `-p no:pytest-brownie` flag to prevent it from loading the Brownie plugin.
-
-### Using Docker
-
-You can use a sandbox container provided in the [`docker-compose.yml`](docker-compose.yml) file for testing inside a Docker environment.
-
-This container provides everything you need to test using a Python 3.6 interpreter.
-
-Start the test environment:
-
-```bash
-docker-compose up -d
-```
-
-To open a session to the container:
-
-```bash
-docker-compose exec sandbox bash
-```
-
-To run arbitrary commands, use the `bash -c` prefix.
-
-```bash
-docker-compose exec sandbox bash -c ''
-```
-
-For example, to run the tests in `brownie/tests/test_format_input.py`:
-
-```bash
-docker-compose exec sandbox bash -c 'python -m pytest tests/convert/test_format_input.py'
-```
-
-#### Attaching to dockerized RPC clients
-
-You can also attach to a RPC client already running inside a docker container.
-
-For example for running ganache-cli you could just startup the official ganache-cli docker image:
-
-```bash
-docker run -p 8545:8545 trufflesuite/ganache-cli
-```
-
-Then in another terminal on your host you could connect to it:
-
-```bash
-brownie console
-```
-
-If you have your RPC client bound to a specific hostname e.g. `ganache` you could create a separate brownie network for it:
-
-```bash
-brownie networks add Development dev cmd=ganache-cli host=http://ganache:8545
-```
-
-Then connect to it with:
-
-```bash
-brownie console --network dev
-```
-
-## Contributing
-
-Help is always appreciated! Feel free to open an issue if you find a problem, or a pull request if you've solved an issue.
-
-Please check out our [Contribution Guide](CONTRIBUTING.md) prior to opening a pull request, and join the Brownie [Gitter channel](https://gitter.im/eth-brownie/community) if you have any questions.
-
-## License
-
-This project is licensed under the [MIT license](LICENSE).

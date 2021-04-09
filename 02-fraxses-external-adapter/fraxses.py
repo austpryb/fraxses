@@ -29,27 +29,3 @@ def usr_aut(gateway, username="", password=""):
         app.logger.error('Error connecting to {}, response code is '.format(gateway) + str(auth))
         return None
 
-def app_qry(gateway, token="", hed_cde="", whr="", odr="", pge="", pge_sze=""):
-    try:
-        payload = {
-            "token": token,
-            "action": "app_qry",
-            "parameters": {
-                    "hed_cde": hed_cde,
-                    "whr": whr,
-                    "odr": odr,
-                    "pge": pge,
-                    "pge_sze": pge_sze
-                }
-            }
-    except Exception as e:
-        app.logger.error(e)
-        return None
-    qry = requests.post(url = gateway, data = json.dumps(payload))
-    if qry.status_code == 200:
-        data = json.loads(qry.content)['result'][0]['serviceresult']
-        return data
-    else:
-        app.logger.error(qry.content)
-        return None
-

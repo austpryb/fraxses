@@ -39,7 +39,7 @@ class Adapter:
             token = usr_aut(gateway=FRAXSES_API_GATEWAY, username=FRAXSES_USERNAME, password=FRAXSES_PASSWORD)
             logging.info('Token success, token is '+ str(token))
             if token:
-                token=token['records'][0]['tok']
+                token = token['records'][0]['tok']
                 params = {
                     "token": token,
                     "action": self.action,

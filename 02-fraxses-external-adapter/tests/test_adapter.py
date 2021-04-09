@@ -10,9 +10,9 @@ def adapter_setup(test_data):
 
 
 @pytest.mark.parametrize('test_data', [
-    {'id': job_run_id, 'data': {'base': 'ETH', 'quote': 'USD'}},
-    {'id': job_run_id, 'data': {'from': 'ETH', 'to': 'USD'}},
-    {'id': job_run_id, 'data': {'coin': 'ETH', 'market': 'USD'}},
+    {'id': job_run_id, 'data': {'action': 'app_qry', 'hed_cde': 'invoices', 'whr': '', 'odr': '', 'pge': 1, 'pge_sze': 1}},
+    {'id': job_run_id, 'data': {'action': 'app_qry', 'hed_cde': 'invoices', 'whr': '', 'odr': '', 'pge': 2, 'pge_sze': 1}},
+    {'id': job_run_id, 'data': {'action': 'app_qry', 'hed_cde': 'invoices', 'whr': '', 'odr': '', 'pge': 3, 'pge_sze': 1}},
 ])
 def test_create_request_success(test_data):
     result = adapter_setup(test_data)
@@ -26,7 +26,7 @@ def test_create_request_success(test_data):
 
 @pytest.mark.parametrize('test_data', [
     {'id': job_run_id, 'data': {}},
-    {'id': job_run_id, 'data': {'from': 'does_not_exist', 'to': 'USD'}},
+    {'id': job_run_id, 'data': {'action': 'does_not_exist', 'parm1': 'abc123'}},
     {},
 ])
 def test_create_request_error(test_data):
