@@ -30,7 +30,7 @@ python3 manifest.py test \
 ```
  
 #### Refer to <strong>03-brownie-fraxses-service/dapps/hackathon/app/app.py</strong>
-
+This block of code initiates a Kafka listener looking for messages on TOPIC_NAME and will process messages based on the "handle_message()" function. Technically you could use multiprocessing libary have many listeners for different topics thus serving multiple Brownie endpoints from the same session.
 ```
 if __name__ == "__main__":
     # open the smart wrapper listening context
@@ -53,7 +53,7 @@ if __name__ == "__main__":
                 print("Error in wrapper", error.format_error(), message)
 ```
 
-Technically you could use multiprocessing libary to listen to multiple topics thus serving multiple Brownie endpoints from the same session. 
+This block of code imports the project and connects to the chain specified in that projects config. The function, "handle_message()", will do something with the parameters sent in from the coordinator. In this case those parameters get passed into the "deploy_contract()" function, where a contract specifying an NFT is minted.
 
 ```
 # Gives us access to the Brownie session
@@ -80,7 +80,7 @@ def handle_message(message):
         return str(e)
 ```
 
-Data classes define how the payload (our smart contract parameters) will be parsed
+Data classes define how the payload (our smart contract parameters) will be parsed. In this case, the data class, "FraxsesPayload" will always stay the same and "SmartContractParameters" can be dynamic and is defined from the fraXses configuration front end.
 
 ```
 @dataclass

@@ -1,6 +1,6 @@
 #### 02-fraxses-external-adapter project directory has been cloned from the Chainlink Python template [repository](https://github.com/thodges-gh/CL-EA-Python-Template)
-#### It has been modified to resolve external adapter requests into fraXses's API Gateway. There can be multiple fraXses's serving the same service or dataset. 
-#### The fraXses External Adapter accelerates the ability to expose services or data to the blockchain and provides a low code, configuration framework for hosting and maintaining data and services. Intenda Corp will be piloting a sandbox cluster in the near future.  
+It has been modified to resolve external adapter requests into fraXses's API Gateway. There can be multiple fraXses's serving the same service or dataset. 
+The fraXses External Adapter accelerates the ability to expose services or data to the blockchain and provides a low code, configuration framework for hosting and maintaining data and services. Intenda Corp will be piloting a sandbox cluster in the near future.  
 
 If you are a chainlink node operator tired of building and hosting custom adapters and need a way to productionize your services faster then get started by setting a bridge name for "fraxses-external-adapter" at 0.0.0.0. Feel free to test some of the Postman items to directly against our sandbox gateway before building your own events in fraXses. If you are a developer looking to "oraclize" your data and serverless functionality then consider running the fraXses external adapter as the last external adapter you will ever have to build.  
 
