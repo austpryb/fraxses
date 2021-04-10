@@ -128,6 +128,7 @@ gcloud container clusters get-credentials chainlink-node-pool-cluster --zone $GC
 ~                                                                                                                        
 ```
 
+### Watch my video on how to port forward into Posgres to manually add the Chainlink Node Pool databases. This step must be completed manually until I add support for multiple database at init
 
 
 

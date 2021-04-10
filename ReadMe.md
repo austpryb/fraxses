@@ -1,10 +1,11 @@
 # Chainlink and fraXses Data Mesh Integration. The start of the fastest, most scalable defi data and microservice exchange platform
 
-The goal of this hackathon submission is to demonstrate a production grade multi-chain Chainlink node managing pool that has a tight integration with Intenda's Data Mesh platform, fraXses (https://www.intenda.tech/fraxses/). This integration allows authenticated Chainlink nodes to access resources from a fraXses cluster over the "Universal" external adapter. Universal, because fraXses can translate over 300 unique data source types and orchestrate data exchange between any microservice task wrapped in its mesh. Node operators can configure data interchange from virtually any source or service... all with low or no code. Because fraXses's orchestration layer is built on metadata, enourmous amounts of data or very complex transactions tied to multiple systems can be represented in just a few bytes (03-brownie-fraxses-service/dapp). Metadata updates can be traded, sold, or broadcasted to other fraXses clusters with the push of a button (or invocation by a smart contract). Metadata is portable. It can be minted onto NFT tokens using the Brownie wrapper for fraXses (see part 2), validated on chain by other smart contracts connected to a fraXses mesh, or passed as parameters into pre-compiled solidity (see 03-brownie-fraxses-service).
+#### The goal of this hackathon submission is to demonstrate a production grade multi-chain Chainlink node managing pool that has a tight integration with Intenda's Data Mesh platform, [fraXses](https://www.intenda.tech/fraxses/). This integration allows authenticated Chainlink nodes to access resources from a fraXses cluster over the "Universal" external adapter. Universal, because fraXses can translate over 300 unique data source types and orchestrate data exchange between any microservice task wrapped in its mesh. Node operators can configure data interchange from virtually any source or service... all with low or no code. Because fraXses's orchestration layer is built on metadata, enourmous amounts of data or very complex transactions tied to multiple systems can be represented in just a few bytes (03-brownie-fraxses-service/dapp). Metadata updates can be traded, sold, or broadcasted to other fraXses clusters with the push of a button (or invocation by a smart contract). Metadata is portable. It can be minted onto NFT tokens using the Brownie wrapper for fraXses (see part 2), validated on chain by other smart contracts connected to a fraXses mesh, or passed as parameters into pre-compiled solidity (see 03-brownie-fraxses-service).
 
 
 #### Key Submission Components:
 <strong>01-chainlink-operator-node-pool</strong>
+- Quickly deploy a 3 node Kubernetes cluster running the Chainlink Node Pool + Postgres, fraXses External Adapter, AvalancheGo Node 
 - Advanced users can get started by deploying the Chainlink Node Pool cluster on one of the provided Terraform projects provided in this repo.  
   - Multi-chain orchestration is easily managed by the Kubernetes config maps. Just extend the environment variables to create deployments for MAINNET, KOVAN, AVALANCHE, ETC.
 
@@ -24,4 +25,4 @@ https://sandbox.fraxses.com/
 - Microservice developers and data owners can wrap their product in fraXses endpoints to distribute to node operators running the Universal External Adapter.
 
 <strong>04-avalanchego</strong>
-
+- This is the official AvalancheGo build, only modified to run in Kubernetes
