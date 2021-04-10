@@ -1,6 +1,20 @@
+#### 02-fraxses-external-adapter project directory has been cloned from the Chainlink Python template [repository](https://github.com/thodges-gh/CL-EA-Python-Template)
+#### It has been modified to resolve external adapter requests into fraXses's API Gateway. There can be multiple fraXses's serving the same service or dataset. 
 #### The fraXses External Adapter accelerates the ability to expose services or data to the blockchain and provides a low code, configuration framework for hosting and maintaining data and services. Intenda Corp will be piloting a sandbox cluster in the near future.  
 
-If you are a chainlink node operator tired of running custome adapters for every data source or developer looking to monetize your data and serverless functions then get started by setting a bridge name for "fraxses-external-adapter". There is a public facing bridge up for this submission at 0.0.0.0 so feel free to test some of the Postman items to directly against our sandbox gateway before building your own events in fraXses. Note that every event in fraXses is described by an "action" code which is the minimum required external adapter parameter. Additional parameters can be configured in the fraXses front end per event. While the Postman collection will have you authenticate to fraXses using the "usr_aut" action, the fraXses external adapter handles authentication internally. Of course this could be reversed, where the oracle must pass validated token in prior to utilizing fraXses resources over thexternal adapter.
+If you are a chainlink node operator tired of building and hosting custom adapters and need a way to productionize your services faster then get started by setting a bridge name for "fraxses-external-adapter" at 0.0.0.0. Feel free to test some of the Postman items to directly against our sandbox gateway before building your own events in fraXses. If you are a developer looking to "oraclize" your data and serverless functionality then consider running the fraXses external adapter as the last external adapter you will ever have to build.  
+
+The fraXses external adapter can be deployed a few different ways
+
+- Visit <strong>01-chainlink-nodepool/ReadMe.md</strong> to learn how to deploy the External adapter on a Terraform Kubernetes cluster from scratch 
+- Already have a Kubernetes cluster? Go to <strong>02-fraxses-external-adapter/deployments</strong>, run the <strong>generate-manifest.py</strong> script and run```kubectl apply -f *.yml``` on each of the config files  
+- Want to host on a VM? docker pull and run austpryb/external-adapter:001
+- Follow the Chainlink Python template ReadMe.md for directions on how to package for AWS Lambda and Google Functions 
+
+
+Node operator examples:
+
+Note that every event in fraXses is described by an "action" code which is the minimum required external adapter parameter. Additional parameters can be configured in the fraXses front end per event. While the Postman collection will have you authenticate to fraXses using the "usr_aut" action, the fraXses external adapter handles authentication internally. Of course this could be reversed, where the oracle must pass validated token in prior to utilizing fraXses resources over thexternal adapter.
 
 ```
 {
@@ -35,6 +49,8 @@ If you are a chainlink node operator tired of running custome adapters for every
   ]
 }
 ```
+
+Some more sample web requests. Some are still WIP
 
 #### Queries fraXses invoice data object for first row matching invoice_id = 1
 #### Services orchestrated: [META] --> [JDBC] --> [{"invoice_amount":"123.90"}]
