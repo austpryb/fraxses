@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.DEBUG)
 def usr_aut(gateway, username="", password=""):
     try:
         payload = {
-            "token": "9098A7DD-E2B4-46C5-9CA0-8A3E0647FBA7",
+            "token": "",
             "action": "usr_aut",
             "parameters": {
                 "user": username,

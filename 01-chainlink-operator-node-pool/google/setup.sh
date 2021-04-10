@@ -96,18 +96,8 @@ read GCP_REGION
 printf "What GCP Zone do you want to build the cluster in? (us-east1-b)\n"
 read GCP_ZONE
 
-echo "GCP_REGION set to $GCP_REGION"
-echo "GCP_ZONE set to $GCP_ZONE"
-echo "PROJECT_ID set to $PROJECT_ID"
-echo "SA_EMAIL set to $SA_EMAIL"
-echo "SSH_EMAIL set to $SSH_EMAIL"
-echo "USER_EMAIL set to $USER_EMAIL"
-echo "SSH_KEY set to $SSH_KEY"
-echo "CLUSTER_NAME set to $CLUSTER_NAME"
-printf "\n"
-
 # For Terraform arg to name kubernetes cluster 
-CLUSTER_NAME="$PROJECT_ID-cluster"
+export CLUSTER_NAME="$PROJECT_ID-cluster"
 export GCP_REGION="$GCP_REGION"
 export GCP_ZONE="$GCP_ZONE"
 export PROJECT_ID="$PROJECT_ID"
@@ -117,6 +107,16 @@ export USER_EMAIL=$USER_EMAIL
 export CLUSTER_NAME=$CLUSTER_NAME
 export SSH_KEY="$SSH_KEY"
 export ETH_URL_KOVAN=$ETH_URL_KOVAN
+
+echo "GCP_REGION set to $GCP_REGION"
+echo "GCP_ZONE set to $GCP_ZONE"
+echo "PROJECT_ID set to $PROJECT_ID"
+echo "SA_EMAIL set to $SA_EMAIL"
+echo "SSH_EMAIL set to $SSH_EMAIL"
+echo "USER_EMAIL set to $USER_EMAIL"
+echo "SSH_KEY set to $SSH_KEY"
+echo "CLUSTER_NAME set to $CLUSTER_NAME"
+printf "\n"
 
 echo "All Google variables are saved"
 

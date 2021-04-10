@@ -37,7 +37,7 @@ def handle_message(message):
     try:
         data = message.payload
         data = data.payload['data']
-        deploy = deploy_contract(data['TEST123'])
+        deploy = deploy_contract(data['TEST'])
     except Exception as e:
         print("Error in wrapper parsing", str(e))
         return str(e)
