@@ -2,13 +2,13 @@
 RED='\033[1;31m'
 BLUE='\033[1;34m'
 normal=$(tput sgr0)
-if [ "$#" -ne 2 ]; then
+if [ "$#" -ne 3 ]; then
     printf "${RED}please pass the name of the Google Cloud proejct you want to create and the desired Chainlink Admin Email\nExample: gcloud auth login | gcloud projects list\n${normal}"
     exit 1
 fi
 # 
-# . ./setup.sh chainlink-node-pool gcp-account@gmail.com wss://mainnet.infura.io/ws/v3/***
-
+# . ./setup.sh chainlink-node-pool gcp-account@gmail.com wss://mainnet.infura.io/ws/v3/<mainnet_id> wss://mainnet.infura.io/ws/v3/<kovan_id> 
+# We will just be configuring the entire node pool to run eth kovan for the purposes of the POC
 #The chainlink node pool project. For now only use the default
 PROJECT_ID=$1
 #your email address, used to login into the node's web portal

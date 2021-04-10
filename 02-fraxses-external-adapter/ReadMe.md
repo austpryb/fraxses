@@ -1,4 +1,25 @@
-Chainlink smart contracts pass data into the fraXses external adapter like so:
+If you are a chainlink node operator, get started by setting a bridge name for "fraxses-external-adapter". There is a public facing bridge up for this submission at 0.0.0.0 so feel free to test some of the Postman items to directly against our sandbox gateway
+before building your own events in fraXses. Note that every event in fraXses is described by an "action" code which is the minimum required external adapter parameter. Additional parameters can be configured in the fraXses front end per event. While the Postman collection will have you authenticate to fraXses using the "usr_aut" action, the fraXses external adapter handles authentication internally. Of course this could be reversed, where the oracle must pass validated token in prior to utilizing fraXses resources over thexternal adapter.
+
+```
+{
+  "initiators": [
+    { "type": "web" }
+  ],
+  "tasks": [
+    { "type": "fraxses-external-adapter",
+      "params": {
+	"action":"app_qry", 
+	"hed_cde":"invoices", 
+	"whr":"id = 1", 
+	"odr":"", 
+	"pge":"1",
+        "pge_sze":"1"
+	}
+     },
+  ]
+}
+```
 
 #### Queries fraXses invoice data object for first row matching invoice_id = 1
 #### Services orchestrated: [META] --> [JDBC] --> [{"invoice_amount":"123.90"}]

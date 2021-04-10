@@ -1,0 +1,109 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Hackathon",
+		"_postman_id": "8e4c7a5b-6a9e-b0d3-fd8f-36f9797e8241",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "usr_aut",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"\",\r\n    \"action\": \"usr_aut\",\r\n    \"parameters\": {\r\n        \"user\": \"chainlink_node_operator\",\r\n        \"password\": \"chainlink_node_operator\"\r\n    }\r\n}"
+				},
+				"description": "Note that if multiple applications attempt to login with the same user it is possible that your token session can be \"stolen\" from the secondary application seeking authentication\n\nParse the \"tok\" object and pass to subsequent fraXses Gateway requests.\n\nresult[0].serviceresult.response.records.[0].tok"
+			},
+			"response": []
+		},
+		{
+			"name": "app_qry_invoices",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"invoices\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "app_qry_customers",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"customers\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "app_qry_tracks",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"tracks\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "app_qry_billing_amount_001",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"billing_amount_001\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "app_qry_billing_amount_002",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"billing_amount_002\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "app_qry_billing_amount_003",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"billing_amount_003\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

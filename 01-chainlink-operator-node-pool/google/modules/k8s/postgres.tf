@@ -26,10 +26,11 @@ resource "kubernetes_config_map" "postgres" {
   }
 
   data = {
-    #"POSTGRES_DB" = "chainlink"
+    "POSTGRES_DB" = "chainlink"
     "POSTGRES_USER" = "${var.postgres_username}"
     "POSTGRES_PASSWORD" = "${random_password.postgres-password.result}"
-    "POSTGRES_MULTIPLE_DATABASES"="chainlink,chainlink-mainnet,chainlink-binance,avalanche,avalanche-fuji"
+    # TO DO. Need to implement start up script
+    "POSTGRES_MULTIPLE_DATABASES"="chainlink-kovan,chainlink-mainnet,chainlink-binance,chainlink-avalanche,chainlink-avalanche-fuji"
     "create-multiple-postgresql-databases.sh" = "${file("${path.module}/create-multiple-postgresql-databases.sh")}"
   }
 }
