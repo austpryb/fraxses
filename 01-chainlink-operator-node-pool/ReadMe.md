@@ -183,7 +183,7 @@ Your cluster will authenticate correctly if you've executed the gcloud credentia
   <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-45-35.png" width="750" title="">
 </p>
 
-7) The Avalanche Node IP can be found on the <strong>Network --> Services<strong> tab in Lens. Look for the <strong>avalanchgo-node-elb</strong>. 
+7) The Avalanche Node IP can be found on the <strong>Network --> Services</strong> tab in Lens. Look for the <strong>avalanchgo-node-elb</strong>. 
 
 <p align="center">
   <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-34-24.png" width="750" title="">
