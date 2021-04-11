@@ -33,65 +33,88 @@ Note that every event in fraXses is described by an "action" code which is the m
 </p>
 
 
-A minimal event that returns back the same payload submitted to it. 
+Just a minimal event that returns back the same payload submitted to it. 
 
 <p align="center">
   <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+01-43-13.png" width="750" title="">
+</p>
+
+Add the fraXses external adapter
+
+<p align="center">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+15-58-08.png" width="350" title="">
 </p>
 
 
 ```
 {
   "initiators": [
-    { "type": "web" }
+    {
+      "type": "web",
+      "params": {}
+    }
   ],
   "tasks": [
-    { "type": "fraxses-external-adapter",
+    {
+      "type": "fraxses-external-adapter",
+      "confirmations": null,
       "params": {
-        "action":"CHAINLINK_TEST",
-        }
-     },
-  ]
+        "action": "chainlink_test",
+        "hed_cde": "hello",
+        "nft_nme": "world"
+      }
+    }
+  ],
+  "startAt": null,
+  "endAt": null
 }
 ```
 
-Inovice query job run success
+Invoice query job run success
 
 <p align="center">
   <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+15-59-17.png" width="750" title="">
 </p>
 
 ```
-# Query invoiceid = 1
+# Query invoices data object where invoiceid = 1
+# hed_cde can be customers, invoices, billing_amount_001, billing_amount_002, billing_amount_003
 {
   "initiators": [
-    { "type": "web" }
+    {
+      "type": "web",
+      "params": {
+      }
+    }
   ],
   "tasks": [
-    { "type": "fraxses-external-adapter",
+    {
+      "type": "fraxses-external-adapter",
+      "confirmations": null,
       "params": {
-	"action":"app_qry", 
-	"hed_cde":"invoices", 
-	"whr":"invoiceid = 1", 
-	"odr":"", 
-	"pge":"1",
-        "pge_sze":"1"
-	}
-     },
-  ]
+        "action": "app_qry",
+	"hed_cde": "invoices",
+	"whr": "InvoiceId = 1",
+	"odr": "",
+        "pge": "1",
+        "pge_sze": "1"
+      }
+    }
+    }
+  ],
+  "startAt": null,
+  "endAt": null
 }
+
 ```
-Invoice result set
+This API call Queries fraXses invoice data object for first row matching records where "InvoiceId = 1"
 
 <p align="center">
   <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+15-59-11.png" width="750" title="">
 </p>
 
-#### Queries fraXses invoice data object for first row matching invoice_id = 1
-#### Services orchestrated: [META] --> [JDBC] --> [{"total":"123.90"}]
-<p align="center">
-  <img src="" width="750" title="">
-</p>
+and orchestrates these services in fraXses: [META] --> [JDBC] --> [{"total":"123.90"}]
+The META service is usually responsible for providing events with their runtime configuration. In this case, the META service is feeding parameters found in the metadata database into the JDBC service. The JDBC service is then responsible for executing the query tied to the "invoices" object we passed in earlier.   
 
 #### Queries latest price for ETH/USD pair
 #### Services orchestrated: [META] --> [JSON] --> [REFORMAT] --> [{"price":"1003.90"}]

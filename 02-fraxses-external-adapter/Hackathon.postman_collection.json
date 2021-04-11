@@ -29,7 +29,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"invoices\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"invoices\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"1\"\r\n  }\r\n}"
 				},
 				"description": ""
 			},
@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"customers\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"customers\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"1\"\r\n  }\r\n}"
 				},
 				"description": ""
 			},
@@ -100,6 +100,20 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"app_qry\",\r\n  \"parameters\": {\r\n    \"hed_cde\": \"billing_amount_003\",\r\n    \"whr\": \"\",\r\n    \"odr\": \"\",\r\n    \"pge\": \"1\",\r\n    \"pge_sze\": \"5\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://sandbox.fraxses.com/api/gateway",
+			"request": {
+				"url": "https://sandbox.fraxses.com/api/gateway",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"token\": \"{{token}}\",\r\n  \"action\": \"chainlink_test\",\r\n  \"parameters\": {\r\n  \"nft_nme\": \"hello\",\r\n  \"hed_cde\": \"world\"\r\n  }\r\n}"
 				},
 				"description": ""
 			},
