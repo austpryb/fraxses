@@ -61,7 +61,7 @@ ssh-keygen -t rsa -b 4096 -N $SSH_SECRET -C $SSH_EMAIL -q -f  ~/.ssh/id_rsa
 SSH_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
-2b) Set the region and zone for your cluster. You may need to check your providers website if you do not wish to
+2b) Set the region and zone for your cluster. You may need to check your providers website if you do not know your region code.
 
 ```
 printf "What GCP Region do you want to build the cluster in? (us-east1)\n"
@@ -71,7 +71,7 @@ printf "What GCP Zone do you want to build the cluster in? (us-east1-b)\n"
 read GCP_ZONE
 
 
-# Make sure all of your variables were set, set them in the command line afterwards if not 
+# Make sure all of your variables were set. You can set them in the command line afterwards if not 
 echo "GCP_REGION set to $GCP_REGION"
 echo "GCP_ZONE set to $GCP_ZONE"
 echo "PROJECT_ID set to $PROJECT_ID"
@@ -135,23 +135,19 @@ gcloud container clusters get-credentials chainlink-node-pool-cluster --zone $GC
 4) Navigate to [Lens](https://k8slens.dev/), download the appropriate Lens client for your OS, and install the Lens Kubernetes IDE. Lens will allow you to manage all of your clusters, apply kubectl commands using the Lens GUI, and monitor your services all in one place.   
 
 4a) To add your cluster, press the <strong>+</strong> button and select the dropdown to include your configuration, ```~./kube/.config```. 
+
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-16-49.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-16-49.png" width="550" title="">
 </p>
 
 Your cluster will authenticate correctly if you've executed the gcloud credentials command from your local machine or correctly mounted the docker volume on your home directory. Google will require you to configure extra security settings if you generate this file in the Gcloud shell and then download to your local Lens environment.
 
 ```gcloud container clusters get-credentials chainlink-node-pool-cluster --zone $GCP_ZONE --project chainlink-node-pool```
 
-<p align="center">
-  <img src="" width="350" title="">
-</p>
-
-
 5) You should notice unhealthy pods as your services start to come up. Filter your <strong>Namespace</strong> to include <strong>Chainlink</strong> if you do not see any pods at all. 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-36-15.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-36-15.png" width="550" title="">
 </p>
 
 5a) To fix these, port forward from the Kubernetes cluster to your local. This is a very secure way to interact with your cluster's resources and you should do this instead of exposing external ip addresses when possible. For future reference you can repeat this to interact with any of your cluster's services.
@@ -159,38 +155,38 @@ Your cluster will authenticate correctly if you've executed the gcloud credentia
 ``` kubectl port-forward postgres-0 :5432 -n chainlink```    
 
 <p align="center">
-  <img src=""https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-48-02.png width="350" title="">
+  <img src=""https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-48-02.png width="550" title="">
 </p>
 
 
 5b) We need to manually create postgres databases for the additional chainlink nodes until I have added support for the start up script. Use your favorite database client. [DBeaver](https://dbeaver.io/) if you need one. Just right click the connection --> Create --> Datebase --> [chainlink, chainlink-kovan, chainlink-binance, chainlink-avalanche, chainlink-avalanche-fuji] 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-51-20.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-51-20.png" width="550" title="">
 </p>
 
 
 5c) Notice how each pod provides details on secrets and environment variables. Reference these for Chainlink Node Operator login and Postgres authentication details 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-38-53.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-38-53.png" width="550" title="">
 </p>
 
 
 6) The cluster is healthy when all pods are spinning green. When ready, click one of the chainlink node operators and port forward into the node operator portal. The username and password are held in the secret, ```api-credentials```
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-30-10.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-30-10.png" width="550" title="">
 </p>
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-45-35.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-45-35.png" width="550" title="">
 </p>
 
 7) The Avalanche Node IP can be found on the <strong>Network --> Services<strong> tab in Lens. Look for the <strong>avalanchgo-node-elb</strong>. 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-34-24.png" width="350" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-34-24.png" width="550" title="">
 </p>
 
 ~                                                                                         
