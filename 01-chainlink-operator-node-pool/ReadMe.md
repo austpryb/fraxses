@@ -137,7 +137,7 @@ gcloud container clusters get-credentials chainlink-node-pool-cluster --zone $GC
 4a) To add your cluster, press the <strong>+</strong> button and select the dropdown to include your configuration, ```~./kube/.config```. 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-16-49.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-16-49.png" width="750" title="">
 </p>
 
 Your cluster will authenticate correctly if you've executed the gcloud credentials command from your local machine or correctly mounted the docker volume on your home directory. Google will require you to configure extra security settings if you generate this file in the Gcloud shell and then download to your local Lens environment.
@@ -147,7 +147,7 @@ Your cluster will authenticate correctly if you've executed the gcloud credentia
 5) You should notice unhealthy pods as your services start to come up. Filter your <strong>Namespace</strong> to include <strong>Chainlink</strong> if you do not see any pods at all. 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-36-15.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-36-15.png" width="750" title="">
 </p>
 
 5a) To fix these, port forward from the Kubernetes cluster to your local. This is a very secure way to interact with your cluster's resources and you should do this instead of exposing external ip addresses when possible. For future reference you can repeat this to interact with any of your cluster's services.
@@ -155,38 +155,38 @@ Your cluster will authenticate correctly if you've executed the gcloud credentia
 ``` kubectl port-forward postgres-0 :5432 -n chainlink```    
 
 <p align="center">
-  <img src=""https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-48-02.png width="550" title="">
+  <img src=""https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-48-02.png width="750" title="">
 </p>
 
 
 5b) We need to manually create postgres databases for the additional chainlink nodes until I have added support for the start up script. Use your favorite database client. [DBeaver](https://dbeaver.io/) if you need one. Just right click the connection --> Create --> Datebase --> [chainlink, chainlink-kovan, chainlink-binance, chainlink-avalanche, chainlink-avalanche-fuji] 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-51-20.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-51-20.png" width="750" title="">
 </p>
 
 
 5c) Notice how each pod provides details on secrets and environment variables. Reference these for Chainlink Node Operator login and Postgres authentication details 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-38-53.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-10+23-38-53.png" width="750" title="">
 </p>
 
 
 6) The cluster is healthy when all pods are spinning green. When ready, click one of the chainlink node operators and port forward into the node operator portal. The username and password are held in the secret, ```api-credentials```
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-30-10.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-30-10.png" width="750" title="">
 </p>
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-45-35.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-45-35.png" width="750" title="">
 </p>
 
 7) The Avalanche Node IP can be found on the <strong>Network --> Services<strong> tab in Lens. Look for the <strong>avalanchgo-node-elb</strong>. 
 
 <p align="center">
-  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-34-24.png" width="550" title="">
+  <img src="https://s3.amazonaws.com/austpryb.io/Screenshot+from+2021-04-11+00-34-24.png" width="750" title="">
 </p>
 
 ~                                                                                         
