@@ -1,4 +1,4 @@
-#### Chainlink Node Operator Pool - Infastructure Set Upgo-node-ilb
+#### Chainlink Node Operator Pool 
 The Chainlink Node Operator Pool is a Kubernetes implementation of the Chainlink Node stack (node + postgres db), fraXses External Adapter, and the AvalancheGo node. The cluster I'll be showcasing resides in <strong>01-chainlink-operator-node-pool\google</strong> and is configured to run 2x replica of the fraXses External Adapter as well as 2x each Mainnet, Kovan, Binance, Avalanche-Fuji, and Avalanche Chainlink nodes simultaneously. Installing this framework is mostly automated through Terraform and cloud CLI setup.sh. Navigate to your directory of your preferred cloud provider and run the <strong>setup.sh</strong> script. This command line wizard will walk you through setting up the Cloud environment variables required to run the Terraform commands found in <strong>init_plan_apply.sh</strong>. Once Terraform is applied it will take some time to launch the cluster and its deployment pods. The Azure and On-prem directory will get you to a basic configuration just a Kovan Chainlink node and the External adapter. AWS is WIP.
 
 
