@@ -100,7 +100,6 @@ Invoice query job run success
         "pge_sze": "1"
       }
     }
-    }
   ],
   "startAt": null,
   "endAt": null
